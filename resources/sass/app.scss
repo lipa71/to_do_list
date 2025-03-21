@@ -1,1 +1,10 @@
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.main-background {
+    background: rgb(131, 58, 180);
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 184, 253, 1) 50%, rgba(192, 69, 252, 1) 100%);
+}

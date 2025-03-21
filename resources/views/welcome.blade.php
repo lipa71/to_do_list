@@ -22,7 +22,7 @@
                             <livewire:welcome.navigation />
                         @endif
                     </header>
-                    <main style="margin: 250pt 100pt 100pt" class="p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <main style="margin: 250pt 100pt 100pt" class="p-8 bg-gray-800 shadow sm:rounded-lg">
                         <div class="flex items-center justify-center gap-10">
                             <div class="text-white text-4xl font-semibold">
                                 To Do App
