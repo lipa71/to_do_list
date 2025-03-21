@@ -34,3 +34,12 @@
 </div>
 </body>
 </html>
+
+@livewireScripts
+<script src="https://fastly.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
+@stack('livewireStack')
+<script type="text/javascript">
+    function openLivewireModal(component, attributes = {}, modalSize = 'modal-md') {
+        window.livewire.emitTo('components.modal', 'showModal', component, attributes, modalSize, true);
+    }
+</script>
