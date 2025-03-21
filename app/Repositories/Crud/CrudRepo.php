@@ -30,7 +30,7 @@ class CrudRepo implements ICrudRepo
         $query = $this->model->query();
 
         $this->applySorting($query, $attributes);
-        $this->applyWith($query, $with);
+        $this->paginate($query, $with);
 
         return $query->get();
     }
@@ -45,8 +45,9 @@ class CrudRepo implements ICrudRepo
 
     public function create(array $attributes): Model
     {
-        if (auth()->check() && ! isset($attributes['created_user_id'])) {
-            $attributes['created_user_id'] = auth()->id();
+        if (isset($attributes['id']))
+        {
+            unset($attributes['id']);
         }
 
         return $this->model->create($attributes);

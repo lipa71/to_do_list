@@ -1,6 +1,6 @@
 <div>
     <button
-        type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+        type="button" wire:click="openCreateModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
         {{__('Create task')}}
     </button>
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->tinyInteger('priority')->nullable()->default(null);
             $table->tinyInteger('state')->nullable()->default(null);
             $table->date('deadline')->nullable()->default(null);
+            $table->integer('user_id')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
         });
