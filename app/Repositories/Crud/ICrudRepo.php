@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Crud;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -10,9 +11,9 @@ interface ICrudRepo
 {
     public function find($id): ?Model;
 
-    public function all($attributes = [], $with = []): Collection;
+    public function all(array $attributes = [], array $values = []): LengthAwarePaginator;
 
-    public function paginate($attributes = [], $with = []): LengthAwarePaginator;
+    public function paginate(Builder $query, array $attributes = []): LengthAwarePaginator;
 
     public function create(array $attributes): Model;
 

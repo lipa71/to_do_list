@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Crud;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -25,20 +26,18 @@ class CrudRepo implements ICrudRepo
         return $this->model->find($id);
     }
 
-    public function all($attributes = [], $with = []): Collection
+    public function all(array $attributes = [], array $values = []): LengthAwarePaginator
     {
         $query = $this->model->query();
-
         $this->applySorting($query, $attributes);
-        $this->paginate($query, $with);
+        $query = $this->paginate($query);
 
-        return $query->get();
+        return $query;
     }
 
-    public function paginate($attributes = [], $with = []): LengthAwarePaginator
+    public function paginate(Builder $query, array $attributes = []): LengthAwarePaginator
     {
-        $query = $this->model->orderBy(($attributes['order_by'] ?? 'id'), ($attributes['order_by_direction'] ?? 'desc'));
-        $this->applyWith($query, $with);
+        $query->orderBy(($attributes['order_by'] ?? 'id'), ($attributes['order_by_direction'] ?? 'desc'));
 
         return $query->paginate($attributes['paginate'] ?? 20);
     }

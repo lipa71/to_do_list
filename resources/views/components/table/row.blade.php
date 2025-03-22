@@ -8,14 +8,14 @@
 ])
 
 <tr @if($agreementByCustomerView)
-        {{ $attributes->merge(['class' => 'tw-relative tw-bg-yellow-100']) }}
+        {{ $attributes->merge(['class' => 'relative bg-yellow-100']) }}
     @elseif($highlight)
-        {{ $attributes->merge(['class' => 'tw-relative tw-bg-red-300']) }}
+        {{ $attributes->merge(['class' => 'relative bg-red-300']) }}
     @else
         @if($isOdd)
-            {{ $attributes->merge(['class' => 'tw-relative tw-bg-wild-sand-800']) }}
+            {{ $attributes->merge(['class' => 'relative bg-wild-sand-800']) }}
         @else
-            {{ $attributes->merge(['class' => 'tw-relative tw-bg-white']) }}
+            {{ $attributes->merge(['class' => 'relative bg-white']) }}
         @endif
     @endif
 

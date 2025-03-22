@@ -1,18 +1,18 @@
 @props([
     'stickyScroll' => null,
-    'customClass' => 'tw-mb-12',
+    'customClass' => 'mb-12',
 ])
 
-<div {{ $attributes->merge(['class' => 'tw-overflow-hidden']) }} >
-    <table class="tw-min-w-full {{ $customClass }}" style="border-collapse: separate !important; border-spacing: 0px;">
-        <thead class="tw-bg-wild-sand-900">
+<div {{ $attributes->merge(['class' => 'overflow-hidden']) }} >
+    <table class="min-w-full {{ $customClass }}" style="border-collapse: separate !important; border-spacing: 0px;">
+        <thead class="bg-wild-sand-900">
         <tr>
             {{ $head }}
 
         </tr>
         </thead>
 
-        <tbody class="tw-bg-white  tw-divide-wild-sand-700">
+        <tbody class="bg-white  divide-wild-sand-700">
         {{ $body }}
         </tbody>
     </table>
