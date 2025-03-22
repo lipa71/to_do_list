@@ -17,7 +17,7 @@ interface ICrudRepo
 
     public function create(array $attributes): Model;
 
-    public function update(Model $model, array $attributes, array $files = []): Model;
+    public function update(Model $model, array $attributes): Model;
 
     public function delete(Model $model);
 

@@ -34,7 +34,7 @@ class TaskService implements ITaskService
         return [
             'form.id'  => 'nullable|numeric',
             'form.name'  => 'required|string|max:255',
-            'form.description'  => 'nullable|string',
+            'form.description'  => 'nullable|string|max:500',
             'form.priority'  => 'required|numeric',
             'form.state'  => 'required|numeric',
             'form.deadline'  => 'required|date',

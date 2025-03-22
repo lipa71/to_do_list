@@ -29,7 +29,7 @@ enum TaskStateEnum: int
         foreach (self::cases() as $case) {
             $array[] = [
                 'value' => $case->value,
-                'description' => self::description($case),
+                'description' => self::description($case->value),
             ];
         }
 

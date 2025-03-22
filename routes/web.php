@@ -8,9 +8,13 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('tasks', 'tasks')
+Route::view('tasks-index', 'tasks.tasks-index')
     ->middleware(['auth', 'verified'])
-    ->name('tasks');
+    ->name('tasks-index');
+
+Route::view('task-show', 'tasks.task-show')
+    ->middleware(['auth', 'verified'])
+    ->name('task-show');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

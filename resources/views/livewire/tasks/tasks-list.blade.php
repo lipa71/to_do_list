@@ -6,16 +6,16 @@
             </div>
         @endif
     </div>
-
-    <button
-        type="button" class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#taskModal">
-        {{__('Create task')}}
-    </button>
-
+    <div class="flex justify-end">
+        <button wire:click.prevent="openCreateTask"
+                type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#taskModal">
+            {{__('Create task')}}
+        </button>
+    </div>
     <div class="h-full mt-6">
         <div class="flex-col space-y-4">
-            <x-table.table class="overflow-x-scroll">
+            <x-table.table class="overflow-x-auto">
                 <x-slot name="head">
                     <x-table.heading>ID</x-table.heading>
                     <x-table.heading>{{__('Name')}}</x-table.heading>
@@ -50,8 +50,8 @@
                             </x-table.cell>
                             <x-table.cell>
                                 <div class="flex gap-2">
-                                    <button wire:click.prevent="edit({{ $task->id }})"
-                                            data-toggle="modal" data-target="#traitModal"
+                                    <button wire:click.prevent="openEditTask({{ $task->id }})"
+                                            data-bs-toggle="modal" data-bs-target="#taskModal"
                                             class="btn btn-sm btn-primary">
                                         {{ __('Edit') }}
                                     </button>

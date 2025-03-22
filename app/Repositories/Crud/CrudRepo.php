@@ -54,12 +54,8 @@ class CrudRepo implements ICrudRepo
         return $this->model->create($attributes);
     }
 
-    public function update(Model $model, array $attributes, array $files = []): Model
+    public function update(Model $model, array $attributes): Model
     {
-        if (auth()->check() && ! isset($attributes['updated_user_id'])) {
-            $attributes['updated_user_id'] = auth()->id();
-        }
-
         $model->update($attributes);
 
         return $model;

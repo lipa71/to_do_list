@@ -33,7 +33,7 @@ class TasksList extends Component
 
     public $availableTaskStates = [];
 
-    public $modalTitle = 'Create Task';
+    public $modalTitle = '';
 
     public function render()
     {
@@ -45,15 +45,16 @@ class TasksList extends Component
     public function mount()
     {
         $this->form = $this->taskService->getForm();
+        $this->modalTitle = $this->taskService->getTaskModalTitle();
 
         $this->availableTaskPriorites = TaskPriorityEnum::getArray();
         $this->availableTaskStates = TaskStateEnum::getArray();
     }
 
-    public function createTask(): void
+    public function saveTask(): void
     {
         $this->validate($this->taskService->getValidationRules(), $this->taskService->getValidationErrorMessages());
-        $this->taskRepo->create($this->form);
+        $this->taskRepo->saveTask($this->form);
 
         $this->dispatch('toast', 'Task Created');
         $this->dispatch('closeTaskModal');
@@ -66,7 +67,12 @@ class TasksList extends Component
         $this->taskRepo->delete($this->taskRepo->find($taskId));
     }
 
-    public function editTask(int $taskId): void
+    public function openCreateTask(): void
+    {
+        $this->form = $this->taskService->getForm();
+    }
+
+    public function openEditTask(int $taskId): void
     {
         $this->form = $this->taskService->getEditForm($taskId);
     }
