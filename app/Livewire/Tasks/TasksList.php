@@ -59,7 +59,13 @@ class TasksList extends Component
 
     public function createTask(): void
     {
-        $this->form = $this->validate($this->taskRepo->getValidationRules(), $this->taskRepo->getValidationErrorMessages());
+        $this->validate($this->taskRepo->getValidationRules(), $this->taskRepo->getValidationErrorMessages());
         $this->taskRepo->create($this->form);
+
+//        request()->session()->flash('success', 'Task created!');
+        $this->dispatch('toast', 'Task Created');
+        $this->dispatch('closeTaskModal');
     }
+
+
 }

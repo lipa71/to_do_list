@@ -1,10 +1,7 @@
 <div>
-
-</div>
-
-@push('livewireStack')
+    @script
     <script type="text/javascript">
-        window.livewire.on('toast', message => {
+        $wire.on('toast', message => {
             Toastify({
                 text: message,
                 backgroundColor: "#2eb85c",
@@ -14,7 +11,7 @@
                 }
             }).showToast();
         });
-        window.livewire.on('toastWarning', message => {
+        $wire.on('toastWarning', message => {
             Toastify({
                 text: message,
                 backgroundColor: "#f90d0d",
@@ -25,4 +22,5 @@
             }).showToast();
         });
     </script>
-@endpush
+    @endscript
+</div>

@@ -42,4 +42,12 @@
             </div>
         </div>
     </div>
+
+    @script
+    <script>
+        $wire.on('closeTaskModal', () => {
+            $('#taskModal').modal('hide');
+        });
+    </script>
+    @endscript
 </div>

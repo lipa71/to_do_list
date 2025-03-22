@@ -12,7 +12,7 @@
         </tr>
         </thead>
 
-        <tbody class="bg-white  divide-wild-sand-700">
+        <tbody class="bg-grey-800  divide-wild-sand-700">
         {{ $body }}
         </tbody>
     </table>

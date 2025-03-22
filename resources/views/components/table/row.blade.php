@@ -15,7 +15,7 @@
         @if($isOdd)
             {{ $attributes->merge(['class' => 'relative bg-wild-sand-800']) }}
         @else
-            {{ $attributes->merge(['class' => 'relative bg-white']) }}
+            {{ $attributes->merge(['class' => 'relative bg-wild-sand-800']) }}
         @endif
     @endif
 

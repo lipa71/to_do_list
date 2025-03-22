@@ -1,10 +1,18 @@
 <div>
+    <div>
+        @if(session(('success')))
+            <div>
+                Success alert
+            </div>
+        @endif
+    </div>
+
     <button
         type="button" wire:click="openCreateModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
         {{__('Create task')}}
     </button>
 
-    <div class="h-full">
+    <div class="h-full mt-6">
         <div class="flex-col space-y-4">
             <x-table.table class="overflow-x-scroll">
                 <x-slot name="head">
@@ -15,6 +23,9 @@
                         <x-table.row>
                             <x-table.cell>
                                 {{ $task->id }}
+                            </x-table.cell>
+                            <x-table.cell>
+                                {{ $task->name }}
                             </x-table.cell>
                         </x-table.row>
                     @empty

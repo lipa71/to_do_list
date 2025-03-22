@@ -11,10 +11,10 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <!-- Styles -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
     <body class="font-sans main-background">
-        <div class="bg-gray-50 text-black/50 main-background dark:text-white/50">
+        <div class="text-black/50">
             <div class="relative min-h-screen selection:text-white">
                 <div class="py-5 px-10">
                     <header class="flex items-top">
