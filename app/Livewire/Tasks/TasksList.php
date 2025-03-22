@@ -3,10 +3,10 @@
 namespace App\Livewire\Tasks;
 
 use App\Enums\Tasks\TaskPriorityEnum;
-use App\Enums\Tasks\TaskStatesEnum;
+use App\Enums\Tasks\TaskStateEnum;
 use App\Livewire\Traits\WithSorting;
-use App\Models\Task;
 use App\Repositories\TaskRepo\ITaskRepo;
+use App\Services\TaskService\ITaskService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,12 +21,13 @@ class TasksList extends Component
 
     private ITaskRepo $taskRepo;
 
-    public function boot(ITaskRepo $taskRepo): void
+    private ITaskService $taskService;
+
+    public function boot(ITaskRepo $taskRepo, ITaskService $taskService): void
     {
         $this->taskRepo = $taskRepo;
+        $this->taskService = $taskService;
     }
-
-    public ?Task $taskModel = null;
 
     public $availableTaskPriorites = [];
 
@@ -43,29 +44,30 @@ class TasksList extends Component
 
     public function mount()
     {
-        $this->form = $this->taskRepo->getForm();
+        $this->form = $this->taskService->getForm();
 
         $this->availableTaskPriorites = TaskPriorityEnum::getArray();
-        $this->availableTaskStates = TaskStatesEnum::getArray();
-    }
-
-    public function openCreateModal(): void
-    {
-        $this->modalTitle = 'Create Task';
-
-        $this->form['priority'] = $this->availableTaskPriorites[0]['value'];
-        $this->form['state'] = $this->availableTaskStates[0]['value'];
+        $this->availableTaskStates = TaskStateEnum::getArray();
     }
 
     public function createTask(): void
     {
-        $this->validate($this->taskRepo->getValidationRules(), $this->taskRepo->getValidationErrorMessages());
+        $this->validate($this->taskService->getValidationRules(), $this->taskService->getValidationErrorMessages());
         $this->taskRepo->create($this->form);
 
-//        request()->session()->flash('success', 'Task created!');
         $this->dispatch('toast', 'Task Created');
         $this->dispatch('closeTaskModal');
+
+        $this->form = $this->taskService->getForm();
     }
 
+    public function deleteTask(int $taskId): void
+    {
+        $this->taskRepo->delete($this->taskRepo->find($taskId));
+    }
 
+    public function editTask(int $taskId): void
+    {
+        $this->form = $this->taskService->getEditForm($taskId);
+    }
 }

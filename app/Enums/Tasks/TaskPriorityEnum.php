@@ -11,11 +11,11 @@ enum TaskPriorityEnum: int
     public static function description($property): string
     {
         switch ($property) {
-            case self::LOW:
+            case self::LOW->value:
                 return __('Low');
-            case self::MEDIUM:
+            case self::MEDIUM->value:
                 return __('Medium');
-            case self::HIGH:
+            case self::HIGH->value:
                 return __('High');
             default:
                 return '';
@@ -29,7 +29,7 @@ enum TaskPriorityEnum: int
         foreach (self::cases() as $case) {
             $array[] = [
                 'value' => $case->value,
-                'description' => self::description($case),
+                'description' => self::description($case->value),
             ];
         }
 

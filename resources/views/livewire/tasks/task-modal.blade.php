@@ -11,26 +11,22 @@
                     <x-text-input wire:model="form.name" id="form.name" name="form.name" class="mt-1 block w-full"/>
                     <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
                 </div>
-
-                <div>
+                <div class="mt-2">
                     <x-input-label for="form.description" :value="__('Description')" />
                     <x-textarea wire:model="form.description" id="form.description" name="form.description" class="mt-1 block w-full"/>
                     <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
                 </div>
-
-                <div>
+                <div class="mt-2">
                     <x-input-label for="form.priority" :value="__('Priority')" />
                     <x-select :options="$availableTaskPriorites" wire:model="form.priority" id="form.priority" name="form.priority" class="mt-1 block w-full"/>
                     <x-input-error :messages="$errors->get('form.priority')" class="mt-2" />
                 </div>
-
-                <div>
+                <div class="mt-2">
                     <x-input-label for="form.state" :value="__('State')" />
                     <x-select :options="$availableTaskStates" wire:model="form.state" id="form.state" name="form.state" class="mt-1 block w-full"/>
                     <x-input-error :messages="$errors->get('form.state')" class="mt-2" />
                 </div>
-
-                <div>
+                <div class="mt-2">
                     <x-input-label for="form.deadline" :value="__('Deadline')" />
                     <x-input-date wire:model="form.deadline" id="form.deadline" name="form.deadline" class="mt-1 block w-full"/>
                     <x-input-error :messages="$errors->get('form.deadline')" class="mt-2" />

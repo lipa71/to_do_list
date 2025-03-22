@@ -49,6 +49,8 @@ class CrudRepo implements ICrudRepo
             unset($attributes['id']);
         }
 
+        $attributes['user_id'] = auth()->id();
+
         return $this->model->create($attributes);
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Enums\Tasks;
 
-enum TaskStatesEnum: int
+enum TaskStateEnum: int
 {
     case TO_DO = 1;
     case IN_PROGRESS = 2;
@@ -11,11 +11,11 @@ enum TaskStatesEnum: int
     public static function description($property): string
     {
         switch ($property) {
-            case self::TO_DO:
+            case self::TO_DO->value:
                 return __('To do');
-            case self::IN_PROGRESS:
+            case self::IN_PROGRESS->value:
                 return __('In Progress');
-            case self::DONE:
+            case self::DONE->value:
                 return __('Done');
             default:
                 return '';
