@@ -2,10 +2,8 @@
 
 namespace App\Services\TaskService;
 
-
-use App\Enums\Tasks\TaskPriorityEnum;
-use App\Enums\Tasks\TaskStateEnum;
 use App\Repositories\TaskRepo\ITaskRepo;
+use Illuminate\Support\Facades\URL;
 
 class TaskService implements ITaskService
 {
@@ -17,8 +15,8 @@ class TaskService implements ITaskService
             'id' => null,
             'name' => null,
             'description' => null,
-            'priority' => TaskPriorityEnum::LOW->value,
-            'state' => TaskStateEnum::TO_DO->value,
+            'priority' => null,
+            'state' => null,
             'deadline' => null,
             'user_id' => auth()->user()->id,
         ];
@@ -35,8 +33,8 @@ class TaskService implements ITaskService
             'form.id'  => 'nullable|numeric',
             'form.name'  => 'required|string|max:255',
             'form.description'  => 'nullable|string|max:500',
-            'form.priority'  => 'required|numeric',
-            'form.state'  => 'required|numeric',
+            'form.priority'  => 'nullable|numeric',
+            'form.state'  => 'nullable|numeric',
             'form.deadline'  => 'required|date',
             'form.user_id'  => 'nullable|numeric',
         ];
@@ -52,6 +50,37 @@ class TaskService implements ITaskService
 
     public function getTaskModalTitle(bool $newTask = true): string
     {
-        return __($newTask ? 'Edit task' : 'Create task');
+        return __($newTask ? 'Create task' : 'Edit task');
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            'priority' => null,
+            'state' => null,
+            'deadline_from' => null,
+            'deadline_to' => null,
+        ];
+    }
+
+    public function generateShareTaskUrl(int $taskId): string
+    {
+        return URL::temporarySignedRoute('task-show-signed', now()->addHours(), [
+            'userId' => auth()->user()->id,
+            'taskId' => $taskId
+        ]);
+    }
+
+    public function sendDeadlineNotification(): void
+    {
+        $tasks = $this->taskRepo->getTasksToNotification();
+
+        foreach ($tasks as $task) {
+            $userEmail = $task->user ? $task->user->email : null;
+
+            if ($userEmail) {
+
+            }
+        }
     }
 }

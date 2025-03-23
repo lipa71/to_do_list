@@ -12,4 +12,8 @@ interface ITaskService
     public function getValidationErrorMessages(): array;
 
     public function getTaskModalTitle(bool $newTask = true): string;
+
+    public function getFilters(): array;
+
+    public function generateShareTaskUrl(int $taskId): string;
 }

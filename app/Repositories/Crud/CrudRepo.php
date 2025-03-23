@@ -4,9 +4,7 @@ namespace App\Repositories\Crud;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 class CrudRepo implements ICrudRepo
 {
@@ -19,20 +17,12 @@ class CrudRepo implements ICrudRepo
 
     public function find($id): ?Model
     {
-        if (in_array(SoftDeletes::class, class_uses($this->model))) {
-            return $this->model->withTrashed()->find($id);
-        }
-
         return $this->model->find($id);
     }
 
-    public function all(array $attributes = [], array $values = []): LengthAwarePaginator
+    public function all(): Builder
     {
-        $query = $this->model->query();
-        $this->applySorting($query, $attributes);
-        $query = $this->paginate($query);
-
-        return $query;
+        return $this->model->query();
     }
 
     public function paginate(Builder $query, array $attributes = []): LengthAwarePaginator
@@ -44,8 +34,7 @@ class CrudRepo implements ICrudRepo
 
     public function create(array $attributes): Model
     {
-        if (isset($attributes['id']))
-        {
+        if (isset($attributes['id'])) {
             unset($attributes['id']);
         }
 
@@ -64,29 +53,6 @@ class CrudRepo implements ICrudRepo
     public function delete(Model $model)
     {
         $model->delete();
-    }
-
-    public function restore(Model $model)
-    {
-        $model->restore();
-    }
-
-    public function forceDelete(Model $model)
-    {
-        $model->forceDelete();
-    }
-
-    public function deleteId($id)
-    {
-        $this->model->where('id', $id)->delete();
-    }
-
-    public function updateOrCreateBase($id, $data): Model
-    {
-        return $this->model->updateOrCreate(
-            ['id' => $id],
-            $data
-        );
     }
 
     protected function applySorting(&$query, array $attributes): void

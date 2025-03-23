@@ -4,20 +4,15 @@ namespace App\Livewire\Tasks;
 
 use App\Enums\Tasks\TaskPriorityEnum;
 use App\Enums\Tasks\TaskStateEnum;
-use App\Livewire\Traits\WithSorting;
 use App\Repositories\TaskRepo\ITaskRepo;
 use App\Services\TaskService\ITaskService;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class TasksList extends Component
 {
-    use WithPagination;
-    use WithSorting;
-
     public $form = [];
 
-    public $arrayFilters = [];
+    public $filters = [];
 
     private ITaskRepo $taskRepo;
 
@@ -35,9 +30,11 @@ class TasksList extends Component
 
     public $modalTitle = '';
 
+    public $shareTaskUrl = '';
+
     public function render()
     {
-        $tasks = $this->taskRepo->all(['user_id' => auth()->id()]);
+        $tasks = $this->taskRepo->getTaskList(auth()->id(), $this->filters);
 
         return view('livewire.tasks.tasks-list', ['tasks' => $tasks]);
     }
@@ -45,8 +42,7 @@ class TasksList extends Component
     public function mount()
     {
         $this->form = $this->taskService->getForm();
-        $this->modalTitle = $this->taskService->getTaskModalTitle();
-
+        $this->filters = $this->taskService->getFilters();
         $this->availableTaskPriorites = TaskPriorityEnum::getArray();
         $this->availableTaskStates = TaskStateEnum::getArray();
     }
@@ -56,7 +52,6 @@ class TasksList extends Component
         $this->validate($this->taskService->getValidationRules(), $this->taskService->getValidationErrorMessages());
         $this->taskRepo->saveTask($this->form);
 
-        $this->dispatch('toast', 'Task Created');
         $this->dispatch('closeTaskModal');
 
         $this->form = $this->taskService->getForm();
@@ -69,11 +64,18 @@ class TasksList extends Component
 
     public function openCreateTask(): void
     {
+        $this->modalTitle = $this->taskService->getTaskModalTitle();
         $this->form = $this->taskService->getForm();
     }
 
     public function openEditTask(int $taskId): void
     {
+        $this->modalTitle = $this->taskService->getTaskModalTitle(false);
         $this->form = $this->taskService->getEditForm($taskId);
+    }
+
+    public function shareTask(int $taskId): void
+    {
+        $this->shareTaskUrl = $this->taskService->generateShareTaskUrl($taskId);
     }
 }
