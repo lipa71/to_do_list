@@ -12,8 +12,6 @@ interface ICrudRepo
 
     public function all(): Builder;
 
-    public function paginate(Builder $query, array $attributes = []): LengthAwarePaginator;
-
     public function create(array $attributes): Model;
 
     public function update(Model $model, array $attributes): Model;

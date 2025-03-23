@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Tasks\TaskPriorityEnum;
 use App\Enums\Tasks\TaskStateEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model

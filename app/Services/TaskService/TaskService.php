@@ -2,7 +2,9 @@
 
 namespace App\Services\TaskService;
 
+use App\Mail\TaskDeadline;
 use App\Repositories\TaskRepo\ITaskRepo;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 
 class TaskService implements ITaskService
@@ -69,18 +71,5 @@ class TaskService implements ITaskService
             'userId' => auth()->user()->id,
             'taskId' => $taskId
         ]);
-    }
-
-    public function sendDeadlineNotification(): void
-    {
-        $tasks = $this->taskRepo->getTasksToNotification();
-
-        foreach ($tasks as $task) {
-            $userEmail = $task->user ? $task->user->email : null;
-
-            if ($userEmail) {
-
-            }
-        }
     }
 }

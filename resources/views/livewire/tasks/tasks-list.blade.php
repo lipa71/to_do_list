@@ -1,4 +1,10 @@
 <div>
+    @if (session()->has('success'))
+        <div class="text-white text-center bg-blue-500 rounded-lg shadow bottom-3 text-lg py-2 px-2 mr-5 mb-5" id="successMessage">
+            <p>{{ session('success')}}</p>
+        </div>
+
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-10">
@@ -45,7 +51,7 @@
                 </x-slot>
                 <x-slot name="body">
                     @forelse ($tasks as $task)
-                        <x-table.row wire:key="task-{{$task->id}}">
+                        <x-table.row>
                             <x-table.cell>
                                 <div class="text-nowrap">
                                     {{ $task->id }}
@@ -81,7 +87,7 @@
                                     <div class="btn-group">
                                         <a href="{{route('task-show', ['userId' => auth()->user()->id, 'taskId' => $task->id])}}" target="_blank" type="button" class="btn btn-sm btn-primary">{{__('Show')}}</a>
                                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu" wire:key="actions-button-{{ $task->id }}">
                                             <li><button wire:click.prevent="openEditTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModal"
                                                         class="dropdown-item" >{{__('Edit')}}</button></li>
                                             <li><button wire:click.prevent="shareTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModalShare"
@@ -115,4 +121,14 @@
 
     @include('livewire.tasks.task-modal')
     @include('livewire.tasks.task-share-modal')
+
+    @script
+        <script>
+            $wire.on('removeFlashMessage', () => {
+                setTimeout(function() {
+                    document.getElementById("successMessage").remove();
+                }, 5000);
+            });
+        </script>
+    @endscript
 </div>

@@ -1,5 +1,5 @@
 <div wire:ignore.self class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
+    <div class="modal-dialog">
         <div class="modal-content bg-gray-800">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="taskModalLabel">{{$modalTitle}}</h1>

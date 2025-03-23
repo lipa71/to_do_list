@@ -25,13 +25,6 @@ class CrudRepo implements ICrudRepo
         return $this->model->query();
     }
 
-    public function paginate(Builder $query, array $attributes = []): LengthAwarePaginator
-    {
-        $query->orderBy(($attributes['order_by'] ?? 'id'), ($attributes['order_by_direction'] ?? 'desc'));
-
-        return $query->paginate($attributes['paginate'] ?? 20);
-    }
-
     public function create(array $attributes): Model
     {
         if (isset($attributes['id'])) {

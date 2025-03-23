@@ -4,8 +4,7 @@ namespace App\Repositories\TaskRepo;
 
 use App\Models\Task;
 use App\Repositories\Crud\CrudRepo;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class TaskRepo extends CrudRepo implements ITaskRepo
@@ -30,7 +29,7 @@ class TaskRepo extends CrudRepo implements ITaskRepo
         }
     }
 
-    public function getTaskList(int $userId = 0, array $filters = [], array $attributes = []): LengthAwarePaginator
+    public function getTaskList(int $userId = 0, array $filters = [], array $attributes = []): Builder
     {
         $taskList = $this->all();
 
@@ -53,13 +52,7 @@ class TaskRepo extends CrudRepo implements ITaskRepo
         }
 
         $this->applySorting($taskList, $attributes);
-        $taskList = $this->paginate($taskList);
 
         return $taskList;
-    }
-
-    public function getTasksToNotification(): Collection
-    {
-        return $this->all()->where('deadline', Carbon::tomorrow()->format('Y-m-d'));
     }
 }

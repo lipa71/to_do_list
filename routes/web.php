@@ -24,8 +24,4 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/testroute', function () {
-    Mail::to('lipa71sqad@gmail.com')->send(new TaskDeadline(['name' => 'lipa']));
-});
-
 require __DIR__.'/auth.php';

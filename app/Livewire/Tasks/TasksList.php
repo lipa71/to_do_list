@@ -7,9 +7,12 @@ use App\Enums\Tasks\TaskStateEnum;
 use App\Repositories\TaskRepo\ITaskRepo;
 use App\Services\TaskService\ITaskService;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TasksList extends Component
 {
+    use WithPagination;
+
     public $form = [];
 
     public $filters = [];
@@ -35,6 +38,7 @@ class TasksList extends Component
     public function render()
     {
         $tasks = $this->taskRepo->getTaskList(auth()->id(), $this->filters);
+        $tasks = $tasks->paginate(20);
 
         return view('livewire.tasks.tasks-list', ['tasks' => $tasks]);
     }
@@ -52,6 +56,8 @@ class TasksList extends Component
         $this->validate($this->taskService->getValidationRules(), $this->taskService->getValidationErrorMessages());
         $this->taskRepo->saveTask($this->form);
 
+        session()->flash('success', 'Changes has been saved successfully.');
+        $this->dispatch('removeFlashMessage');
         $this->dispatch('closeTaskModal');
 
         $this->form = $this->taskService->getForm();

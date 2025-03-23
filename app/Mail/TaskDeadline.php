@@ -38,7 +38,7 @@ class TaskDeadline extends Mailable
     {
         return new Content(
             view: 'emails.task-deadline',
-            with: ['data' => $this->data]
+            with: ['data' => $this->data],
         );
     }
 
