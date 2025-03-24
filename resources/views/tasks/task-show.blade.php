@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:tasks.show-task :taskId="request()->taskId" :userId="request()->userId"/>
+    <livewire:tasks.task-show :taskId="request()->taskId" :userId="request()->userId"/>
 </x-app-layout>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Mail\TaskDeadline;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -14,6 +13,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('task-show/{userId}/{taskId}', 'tasks.task-show')
         ->name('task-show');
+
+    Route::view('task-history/{userId}/{taskId}', 'tasks.task-history-list')
+        ->name('task-history');
 });
 
 Route::view('task-show-signed/{userId}/{taskId}', 'tasks.task-show')

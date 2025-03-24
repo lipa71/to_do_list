@@ -3,7 +3,7 @@
 namespace App\Services\TaskEmailService;
 
 use App\Mail\TaskDeadline;
-use App\Models\Task;
+use App\Models\Tasks\Task;
 use App\Repositories\TaskRepo\ITaskRepo;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;

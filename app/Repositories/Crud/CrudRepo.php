@@ -48,7 +48,14 @@ class CrudRepo implements ICrudRepo
         $model->delete();
     }
 
-    protected function applySorting(&$query, array $attributes): void
+    public function removeEditFields(array $form): array
+    {
+        $remove = ['id', 'created_at', 'updated_at', 'deleted_at', 'user_id'];
+
+        return array_diff_key($form, array_flip($remove));
+    }
+
+    protected function applySorting(Builder $query, array $attributes = []): void
     {
         $columns = (array) ($attributes['order_by'] ?? 'id');
         $directions = (array) ($attributes['order_by_direction'] ?? 'desc');

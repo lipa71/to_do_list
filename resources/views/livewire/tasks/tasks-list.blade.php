@@ -38,8 +38,8 @@
         </div>
     </div>
     <div class="h-full mt-6">
-        <div class="flex-col space-y-4">
-            <x-table.table class="overflow-x-auto">
+        <div class="flex-col space-x-4">
+            <x-table.table class="overflow-x-auto pb-9">
                 <x-slot name="head">
                     <x-table.heading>ID</x-table.heading>
                     <x-table.heading>{{__('Name')}}</x-table.heading>
@@ -47,6 +47,7 @@
                     <x-table.heading>{{__('Priority')}}</x-table.heading>
                     <x-table.heading>{{__('State')}}</x-table.heading>
                     <x-table.heading>{{__('Deadline')}}</x-table.heading>
+                    <x-table.heading>{{__('Date added')}}</x-table.heading>
                     <x-table.heading></x-table.heading>
                 </x-slot>
                 <x-slot name="body">
@@ -83,15 +84,33 @@
                                 </div>
                             </x-table.cell>
                             <x-table.cell>
+                                <div class="text-nowrap">
+                                    {{ $task->created_at }}
+                                </div>
+                            </x-table.cell>
+                            <x-table.cell>
                                 <div class="flex justify-center">
                                     <div class="btn-group">
                                         <a href="{{route('task-show', ['userId' => auth()->user()->id, 'taskId' => $task->id])}}" target="_blank" type="button" class="btn btn-sm btn-primary">{{__('Show')}}</a>
                                         <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                        <ul class="dropdown-menu" wire:key="actions-button-{{ $task->id }}">
-                                            <li><button wire:click.prevent="openEditTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModal"
-                                                        class="dropdown-item" >{{__('Edit')}}</button></li>
-                                            <li><button wire:click.prevent="shareTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModalShare"
-                                                        class="dropdown-item" >{{__('Share')}}</button></li>
+                                        <ul class="dropdown-menu" wire:key="actions-button-{{ $task->id }}" style="z-index: 20">
+                                            <li>
+                                                <button wire:click.prevent="openEditTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModal"
+                                                        class="dropdown-item" >
+                                                    {{__('Edit')}}
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button wire:click.prevent="shareTask({{ $task->id }})" data-bs-toggle="modal" data-bs-target="#taskModalShare"
+                                                        class="dropdown-item" >
+                                                    {{__('Share')}}
+                                                </button>
+                                            </li>
+                                            <li class="dropdown-item">
+                                                <a target="_blank" type="button" href="{{route('task-history', ['userId' => auth()->user()->id, 'taskId' => $task->id])}}">
+                                                    {{__('History')}}
+                                                </a>
+                                            </li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><button wire:click.prevent="deleteTask({{ $task->id }})"
                                                         onclick="confirm('Are you sure you want to delete this task?') || event.stopImmediatePropagation()"

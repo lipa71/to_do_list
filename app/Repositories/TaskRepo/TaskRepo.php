@@ -2,10 +2,10 @@
 
 namespace App\Repositories\TaskRepo;
 
-use App\Models\Task;
+use App\Models\Tasks\Task;
 use App\Repositories\Crud\CrudRepo;
+use App\Repositories\TaskHistoryRepo\ITaskHistoryRepo;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class TaskRepo extends CrudRepo implements ITaskRepo
 {
@@ -19,8 +19,7 @@ class TaskRepo extends CrudRepo implements ITaskRepo
         if ($form['id']) {
             $id = $form['id'];
 
-            $remove = ['id', 'created_at', 'updated_at', 'deleted_at'];
-            $valuesToSave = array_diff_key($form, array_flip($remove));
+            $valuesToSave = $this->removeEditFields($form);
 
             $this->update($this->find($id), $valuesToSave);
         }

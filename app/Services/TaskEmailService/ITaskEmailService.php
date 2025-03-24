@@ -3,7 +3,7 @@
 namespace App\Services\TaskEmailService;
 
 
-use App\Models\Task;
+use App\Models\Tasks\Task;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ITaskEmailService

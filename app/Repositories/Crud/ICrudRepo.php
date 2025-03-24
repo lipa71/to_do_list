@@ -17,4 +17,6 @@ interface ICrudRepo
     public function update(Model $model, array $attributes): Model;
 
     public function delete(Model $model);
+
+    public function removeEditFields(array $form): array;
 }

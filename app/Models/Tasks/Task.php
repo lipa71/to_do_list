@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Tasks;
 
 use App\Enums\Tasks\TaskPriorityEnum;
 use App\Enums\Tasks\TaskStateEnum;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;

@@ -4,6 +4,7 @@ namespace App\Livewire\Tasks;
 
 use App\Enums\Tasks\TaskPriorityEnum;
 use App\Enums\Tasks\TaskStateEnum;
+use App\Repositories\TaskHistoryRepo\ITaskHistoryRepo;
 use App\Repositories\TaskRepo\ITaskRepo;
 use App\Services\TaskService\ITaskService;
 use Livewire\Component;
@@ -17,16 +18,6 @@ class TasksList extends Component
 
     public $filters = [];
 
-    private ITaskRepo $taskRepo;
-
-    private ITaskService $taskService;
-
-    public function boot(ITaskRepo $taskRepo, ITaskService $taskService): void
-    {
-        $this->taskRepo = $taskRepo;
-        $this->taskService = $taskService;
-    }
-
     public $availableTaskPriorites = [];
 
     public $availableTaskStates = [];
@@ -34,6 +25,19 @@ class TasksList extends Component
     public $modalTitle = '';
 
     public $shareTaskUrl = '';
+
+    private ITaskRepo $taskRepo;
+
+    private ITaskService $taskService;
+
+    private ITaskHistoryRepo $taskHistoryRepo;
+
+    public function boot(ITaskRepo $taskRepo, ITaskService $taskService, ITaskHistoryRepo $taskHistoryRepo): void
+    {
+        $this->taskRepo = $taskRepo;
+        $this->taskService = $taskService;
+        $this->taskHistoryRepo = $taskHistoryRepo;
+    }
 
     public function render()
     {
@@ -54,6 +58,13 @@ class TasksList extends Component
     public function saveTask(): void
     {
         $this->validate($this->taskService->getValidationRules(), $this->taskService->getValidationErrorMessages());
+
+        if ($this->form['id']) {
+            $taskModel = $this->taskRepo->find($this->form['id']);
+
+            $this->taskHistoryRepo->saveTaskHistory($taskModel, $this->form);
+        }
+
         $this->taskRepo->saveTask($this->form);
 
         session()->flash('success', 'Changes has been saved successfully.');

@@ -5,9 +5,10 @@ namespace App\Livewire\Tasks;
 use App\Repositories\TaskRepo\ITaskRepo;
 use Livewire\Component;
 
-class ShowTask extends Component
+class TaskShow extends Component
 {
     public $taskId = null;
+
     public $userId = null;
 
     public $taskModel = null;
@@ -21,7 +22,7 @@ class ShowTask extends Component
 
     public function render()
     {
-        return view('livewire.tasks.show-task');
+        return view('livewire.tasks.task-show');
     }
 
     public function mount()
